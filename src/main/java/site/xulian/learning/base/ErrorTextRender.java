@@ -22,9 +22,9 @@ public class ErrorTextRender extends Render {
 	@Override
 	public void render() {
 		try {
-//			response.setStatus(getErrorCode(), URLEncoder.encode(errorText, "utf-8"));
-			response.setStatus(getErrorCode());
-			response.sendError(getErrorCode(), URLEncoder.encode(errorText, "utf-8"));
+			response.setStatus(getErrorCode(), URLEncoder.encode(errorText, "utf-8"));
+//			response.setStatus(getErrorCode());
+//			response.sendError(getErrorCode(), URLEncoder.encode(errorText, "utf-8"));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
