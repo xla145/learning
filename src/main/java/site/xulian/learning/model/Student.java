@@ -86,6 +86,8 @@ public class Student extends BaseStudent<Student> {
                 user.setName(student.getStudentId());
                 user.setPwd(MD5Salt.md5("123456"));
                 user.setType(0);
+                user.setCreateTime(new Date());
+				user.setUpdateTime(new Date());
                 user.save();
             } else {
                 student.setUpdateTime(new Date());

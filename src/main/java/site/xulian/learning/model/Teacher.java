@@ -75,9 +75,16 @@ public class Teacher extends BaseTeacher<Teacher> {
 		try {
 			boolean success = false;
 			if (null == teacher.getId()) {
+				User user = new User();
 				teacher.setCreateTime(new Date());
 				teacher.setUpdateTime(new Date());
 				success = teacher.save();
+				user.setName(teacher.getTeacherId());
+				user.setPwd(MD5Salt.md5("123456"));
+				user.setType(1);
+				user.setCreateTime(new Date());
+				user.setUpdateTime(new Date());
+				user.save();
 			} else {
 				teacher.setUpdateTime(new Date());
 				success = teacher.update();
