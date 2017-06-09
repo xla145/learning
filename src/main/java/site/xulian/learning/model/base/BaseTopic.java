@@ -89,4 +89,12 @@ public abstract class BaseTopic<M extends BaseTopic<M>> extends Model<M> impleme
 		return get("update_time");
 	}
 
+	public void setIsStick(java.lang.Integer isStick) {
+		set("isStick", isStick);
+	}
+
+	public java.lang.Integer getIsStick() {
+		return get("isStick");
+	}
+
 }

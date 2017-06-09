@@ -65,4 +65,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("latest_login");
 	}
 
+	public void setImg(java.lang.String img) {
+		set("img", img);
+	}
+
+	public java.lang.String getImg() {
+		return get("img");
+	}
+
 }

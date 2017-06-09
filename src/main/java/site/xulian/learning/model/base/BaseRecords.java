@@ -17,20 +17,20 @@ public abstract class BaseRecords<M extends BaseRecords<M>> extends Model<M> imp
 		return get("id");
 	}
 
-	public void setStudentId(java.lang.String studentId) {
-		set("student_id", studentId);
+	public void setUserId(java.lang.String userId) {
+		set("user_id", userId);
 	}
 
-	public java.lang.String getStudentId() {
-		return get("student_id");
+	public java.lang.String getUserId() {
+		return get("user_id");
 	}
 
-	public void setStudentName(java.lang.String studentName) {
-		set("student_name", studentName);
+	public void setUserName(java.lang.String userName) {
+		set("user_name", userName);
 	}
 
-	public java.lang.String getStudentName() {
-		return get("student_name");
+	public java.lang.String getUserName() {
+		return get("user_name");
 	}
 
 	public void setTopicId(java.lang.Integer topicId) {

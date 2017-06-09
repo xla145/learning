@@ -65,4 +65,12 @@ public abstract class BaseTeacher<M extends BaseTeacher<M>> extends Model<M> imp
 		return get("create_time");
 	}
 
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
+	}
+
+	public java.lang.Integer getStatus() {
+		return get("status");
+	}
+
 }

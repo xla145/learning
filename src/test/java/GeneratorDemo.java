@@ -48,8 +48,8 @@ public class GeneratorDemo {
 		DataSource dataSource = getDataSource();
 		Generator gernerator = new Generator(dataSource, baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir);
 
-//		MetaBuilder metaBuilder = new MetaBuilder(getDataSource());
-		MyMetaBuilder metaBuilder = new MyMetaBuilder(getDataSource(),"");
+		MetaBuilder metaBuilder = new MetaBuilder(getDataSource());
+//		MyMetaBuilder metaBuilder = new MyMetaBuilder(getDataSource(),"");
 		gernerator.setMetaBuilder(metaBuilder);
 		// 设置数据库方言
 		gernerator.setDialect(new MysqlDialect());

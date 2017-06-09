@@ -23,7 +23,8 @@ public class RecordStatisticsJob implements Job{
 	Logger log = Logger.getLogger(this.getClass());
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		log.info("每天定时统计资讯的点击量开始。。。。。。。。。。。。。。");
+		log.info("统计记录信息开始。。。。。。。。。。。。。。");
+        long start = System.currentTimeMillis();
 	    final List<Record> topicList = Answer.dao.getAnswer();
         System.out.println(JsonKit.toJson(topicList));
         if(topicList.isEmpty()) {
@@ -85,6 +86,11 @@ public class RecordStatisticsJob implements Job{
                 return true;
             }
         });
-	    log.info("每天定时统计资讯的点击量结束。。。。。。。。。。。。。。");
+        log.info("统计记录信息耗时：" + (System.currentTimeMillis() - start) + "毫秒");
+        log.info("统计记录信息结束。。。。。。。。。。。。。。");
 	}
+//	public static void main(String [] agrs){
+//        RecordStatisticsJob recordStatisticsJob = new RecordStatisticsJob();
+//        recordStatisticsJob.execute();
+//    }
 }

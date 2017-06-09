@@ -65,11 +65,11 @@ public class Topic extends BaseTopic<Topic> {
 	}
 
 	/**
-	 * 删除数据
+	 * 添加话题
 	 */
 	public DataObj<Topic> saveTopic(Topic topic){
 		Topic oldTopic = Topic.dao.findById(topic.getId());
-		if(topic.getStudentId() == null || (oldTopic.getStudentId() != topic.getStudentId())) {
+		if(topic.getStudentId() == null || (oldTopic != null && oldTopic.getStudentId() != topic.getStudentId())) {
 			return new DataObj<>("你没有权限修改内容！");
 		}
 		log.info("保存数据"+ JsonKit.toJson(topic));

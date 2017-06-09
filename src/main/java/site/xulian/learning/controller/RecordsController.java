@@ -23,11 +23,13 @@ public class RecordsController extends BaseController {
 	public void info(){
 		int id = getParaToInt("id");
 		List<Record> list = Records.dao.getData(id);
-		if(list.isEmpty()){
-			renderErrorText("该记录不存在");
-		}else{
-			renderJson(list);
-		}
+		renderJson(list);
+//		if(list.isEmpty()){
+//			renderErrorText("该记录不存在");
+//			return;
+//		}else{
+//
+//		}
 	}
 	/**
 	 * 保存修改或者添加的数据
@@ -39,7 +41,7 @@ public class RecordsController extends BaseController {
 		log.info("---------------"+JsonKit.toJson(model));
 		DataObj<Records> data = Records.dao.saveRecords(model);
 		if (data.isSuccessCode()) {
-			renderNull();
+			renderJson(data.getData());
 			return;
 		}
 		renderErrorText(data.getMsg());

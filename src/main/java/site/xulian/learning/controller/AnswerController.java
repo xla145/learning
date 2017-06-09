@@ -59,7 +59,7 @@ public class AnswerController extends BaseController {
 	 * 删除记录
 	 */
 	public void delete(){
-		String[] ids  = getParaValues("topicId");
+		String[] ids  = getParaValues("ids");
 		if(ids == null || ids.length == 0){
 			renderErrorText("参数错误");
 			return;

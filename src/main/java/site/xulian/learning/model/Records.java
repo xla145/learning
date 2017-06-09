@@ -20,15 +20,25 @@ public class Records extends BaseRecords<Records> {
 	public List<Record> getData(Integer id){
 		return Db.find("select * from records where topic_id = ?",id);
 	}
-
+    /**
+     * 评论
+     * */
 	public DataObj<Records> saveRecords(final Records records){
 	    final Record record = new Record();
 	    boolean isSuccess= Db.tx(new IAtom() {
                     @Override
                     public boolean run() throws SQLException {
-                        Record record = Db.findFirst("SELECT * FROM student where student_id = ?",records.getStudentId());
-                        if(null != record) {
-                            records.setStudentName(record.get("name").toString());
+                        User user = User.dao.findFirst("select * from user where name = ?",records.getUserId());
+                        if(user.getType() == 0){
+                            Record record = Db.findFirst("SELECT * FROM student where student_id = ?",records.getUserId());
+                            if(null != record) {
+                                records.setUserName(record.get("name").toString());
+                            }
+                        } else {
+                            Record record = Db.findFirst("SELECT * FROM teacher where teacher_id = ?",records.getUserId());
+                            if(null != record) {
+                                records.setUserName(record.get("name").toString());
+                            }
                         }
                         records.setUpdateTime(new Date());
                         records.setCreateTime(new Date());
@@ -55,7 +65,7 @@ public class Records extends BaseRecords<Records> {
 
 	public List<Record> getRecords(){
 	    return Db.find("SELECT COUNT(DISTINCT t.id) create_times, t.student_id, t.student_name ,COUNT(DISTINCT r.id) reply_times\n" +
-                "FROM topic t LEFT JOIN records r ON(t.student_id = r.student_id)\n" +
+                "FROM topic t LEFT JOIN records r ON(t.student_id = r.user_id)\n" +
                 "GROUP BY t.student_id ");
     }
 }
