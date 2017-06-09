@@ -59,6 +59,7 @@ public class Topic extends BaseTopic<Topic> {
 		sql.append(")");
 		Integer num = Db.update(sql.toString());
 		if(num > 0){
+			Db.update("delete from records where topic_id in ("+Common.arrayToSqlIn(ids)+")");
 			return DataObj.getSuccessData("");
 		}
 		return new DataObj<>("删除话题信息失败！");
