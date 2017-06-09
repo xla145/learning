@@ -43,7 +43,7 @@ public class RecordStatisticsJob implements Job{
                 try{
                     StringBuffer sql = new StringBuffer();
                     List<Object[]> params = new ArrayList<Object[]>();
-                    sql.append("INSERT INTO record_statistics(student_id,student_name,sum_times,ask_times,create_time,update_time) VALUES(?,?,?,?,now(),now()) ON DUPLICATE KEY UPDATE ask_times=?,sum_times =?,update_time=now() ");
+                    sql.append("INSERT INTO record_statistics(student_id,student_name,sum_times,ask_times,create_time,update_time) VALUES(?,?,?,?,now(),now()) ON DUPLICATE KEY UPDATE sum_times =?,ask_times=?,update_time=now() ");
                     for (Record r:topicList) {
                         Object[] param = new Object[6];
                         param[0] = r.get("student_id");
@@ -59,7 +59,7 @@ public class RecordStatisticsJob implements Job{
                         Db.batch(sql.toString(),
                                 Common.listTo2Array(params), params.size());
                     }
-                    String sqls = "INSERT INTO record_statistics(student_id,student_name,create_times,create_times,create_time,update_time) VALUES(?,?,?,?,now(),now()) ON DUPLICATE KEY UPDATE create_times=?,reply_times =?,update_time=now()";
+                    String sqls = "INSERT INTO record_statistics(student_id,student_name,create_times,reply_times,create_time,update_time) VALUES(?,?,?,?,now(),now()) ON DUPLICATE KEY UPDATE create_times=?,reply_times =?,update_time=now()";
                     List<Object[]> paramss = new ArrayList<Object[]>();
                     for (Record r:recordsList) {
                         Object[] param = new Object[6];

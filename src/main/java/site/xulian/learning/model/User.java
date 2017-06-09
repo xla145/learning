@@ -2,6 +2,7 @@ package site.xulian.learning.model;
 
 import com.jfinal.log.Logger;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import site.xulian.learning.model.base.BaseUser;
 import site.xulian.learning.utils.DataObj;
 import site.xulian.learning.utils.MD5Salt;
@@ -54,7 +55,28 @@ public class User extends BaseUser<User> {
 	 *
 	 * 获取用户信息
 	 */
-	public User getUserByName(String name) {
+	public Record getUser(String name ,Integer type) {
+		if (type == 0){
+			return Db.findFirst("select s.id,s.`name`,s.class_name,s.phone,s.sex,s.grade_name,u.img from student s JOIN `user` u ON(s.student_id = u.`name`) WHERE u.type = 0 and s.student_id = ?",name);
+		}
+		if (type == 1){
+			return Db.findFirst("select t.id,t.`name`,t.phone,t.sex,u.img from teacher t JOIN `user` u ON(t.teacher_id = u.`name`) WHERE u.type = 1 and t.teacher_id = ?",name);
+		}
+		return Db.findFirst("select * from user where name = ?,type = 2",name);
+	}
+
+	public User getUserByName(String name){
 		return findFirst("select * from user where name = ?",name);
 	}
+
+	/**
+     * 保存用户信息
+     * */
+	public DataObj<String> saveUser(String user_id,String img) {
+	    int num =Db.update("update user set img = ? where name =?", img,user_id);
+	    if (num > 0) {
+	        return DataObj.getSuccessData("");
+        }
+        return new DataObj<>("更新失败！");
+    }
 }

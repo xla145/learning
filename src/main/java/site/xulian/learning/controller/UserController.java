@@ -42,7 +42,7 @@ public class UserController extends BaseController {
       if(getSession().getAttribute("name") != null){
         getSession().removeAttribute("name");
       }
-    redirect("/login.html");
+      renderJson();
 	}
 
 	/**
@@ -93,4 +93,43 @@ public class UserController extends BaseController {
         List<String[]> userList = MyCommon.readExcel(uploadFile.getFile(),"teacher");
 
     }
+	/**
+	 * 获取session
+	 * */
+	public void getSessions(){
+        renderJson(getSession().getAttribute("user"));
+	}
+
+    /**
+     * 获取用户信息
+     * */
+    public void getInfo(){
+        renderJson(User.dao.getUser(getPara("name"),getParaToInt("type")));
+    }
+
+    /**
+     * 上传头像
+     * */
+    public void upload(){
+        UploadFile uploadFile =getFile("file");
+        if (uploadFile == null){
+            renderErrorText("上传错误！");
+            return;
+        }
+        String path = uploadFile.getUploadPath();
+        renderJson(path);
+    }
+
+    public void save(){
+        String user_id = getPara("user_id");
+        String img = getPara("img");
+        Integer type = getParaToInt("type");
+        DataObj<String> dataObj = User.dao.saveUser(user_id,img);
+        if (dataObj.isSuccessCode()){
+            renderNull();
+            return;
+        }
+        renderErrorText(dataObj.getMsg());
+    }
+
 }
